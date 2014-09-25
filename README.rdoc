@@ -1,28 +1,20 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a minimal Rails app that demonstrates a bug in render_to_string when using 
+ActionController::Live.
 
-Things you may want to cover:
+The bug is this: after collecting HTML using render_to_string, an attempt to embed that
+string in a JSON response fails NON-DETERMINISTICALLY. Sometimes the response text is the
+appropriate JSON string, sometimes it is the original HTML.
 
-* Ruby version
+To demo the bug, run Rails v. 4.0.3 under Ruby 1.9.3 and load /lt/page. 
+Clicking the Hit Me button sends off a JSON request, then appends the result to the page.
 
-* System dependencies
+Clicking the link repeatedly produces sometimes the right and sometimes the wrong result,
+seemingly at random.
 
-* Configuration
+If you then go into the lt controller and comment out the declaration of ActionController::Live, 
+the result is consistently correct.
 
-* Database creation
+Note: this is a completely generic Rails app, minimally modified to show the bug.
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
