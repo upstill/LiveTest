@@ -1,19 +1,20 @@
 == README
 
 This is a minimal Rails app that demonstrates a bug in render_to_string when using 
-ActionController::Live.
+renders within a template in the context ofActionController::Live.
 
 The bug is this: after collecting HTML using render_to_string, an attempt to embed that
 string in a JSON response fails NON-DETERMINISTICALLY. Sometimes the response text is the
 appropriate JSON string, sometimes it is the original HTML.
 
 To demo the bug, run Rails v. 4.0.3 under Ruby 1.9.3 and load /lt/page. 
-Clicking the Hit Me button sends off a JSON request, then appends the result to the page.
+Clicking the Hit Me button sends off a JSON request to lt/ping, then appends 
+the result to the page.
 
 Clicking the link repeatedly produces sometimes the right and sometimes the wrong result,
 seemingly at random.
 
-If you then go into the lt controller and comment out the declaration of ActionController::Live, 
+If you go into the lt controller and comment out the declaration of ActionController::Live, 
 the result is consistently correct.
 
 Note: this is a completely generic Rails app, minimally modified to show the bug.
